@@ -106,7 +106,12 @@ const CheckOut = () => {
       }
 
 
-
+      const deleteItem = (index) => {
+        const updatedBuyData = [...buyData];
+        updatedBuyData.splice(index, 1);
+        setBuyData(updatedBuyData);
+        window.localStorage.setItem('buy_now', JSON.stringify(updatedBuyData));
+    }
 
     return (
         <div>
@@ -120,7 +125,7 @@ const CheckOut = () => {
         <div className="flex flex-col md:flex-row gap-4">
             <div className="md:w-8/12">
                 <div className="bg-white rounded-lg max-h-96 overflow-auto shadow-md p-6 mb-4">
-                    <table className="overflow-scroll max-h-96">
+                    <table className="overflow-scroll max-h-96 w-full">
                         <thead>
                             <tr>
                                 <th className="text-left font-semibold">Product</th>
@@ -131,7 +136,7 @@ const CheckOut = () => {
                         </thead>
                         <tbody className="text-xl">
                            {
-                            buyData.map(res=>  <tr key={res.id} className="">
+                            buyData.map((res, index)=>  <tr key={res.id} className="">
                                 <td className="">
                                     <div className="flex items-center">
                                         <img className="h-16 w-16 mr-4" src={res.product_img} alt="Product image"/>
@@ -143,6 +148,13 @@ const CheckOut = () => {
                                     <div className="flex items-center">
                                        
                                         <span className="text-center w-8">1</span>
+                                        
+                                    </div>
+                                </td>
+                                <td className="py-4">
+                                    <div className="flex items-center cursor-pointer">
+                                       
+                                        <span className="text-center bg-red-600 rounded-md text-white p-1" onClick={() => deleteItem(index)}>Delete</span>
                                         
                                     </div>
                                 </td>

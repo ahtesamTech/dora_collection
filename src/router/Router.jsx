@@ -41,7 +41,7 @@ import AddProduct from "../layout/dashboard/AddProduct";
         children: [
             {
                 path : "dashboard",
-                element: <DashboardUI></DashboardUI>
+                element: <AuthCheck ><DashboardUI /></AuthCheck>
             },
             {
                 path: 'login',
@@ -49,7 +49,7 @@ import AddProduct from "../layout/dashboard/AddProduct";
             },
             {
                 path: 'add-product',
-                element: <AddProduct></AddProduct>
+                element: <AuthCheck><AddProduct></AddProduct></AuthCheck>
             }
         ]
     }

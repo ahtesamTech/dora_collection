@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AdminAuth } from "./provider/AdminProvider";
 import { Navigate, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAxios from "../../Axios/useAxios";
 
 
 
@@ -15,7 +16,7 @@ const enteredPassword = '143216';
 
 
 
-    const adminlog = (e)=>{
+    const adminlog =async (e)=>{
 
         e.preventDefault();
         const form = e.target;
@@ -23,14 +24,17 @@ const enteredPassword = '143216';
         const password = form.pass.value;
 
 
-        if (userName === user && password == enteredPassword) {
-        
-            localStorage.setItem('admin', 'true'); // Save isAdmin status in localStorage
-            navigate('/admin/dashboard');
-        } else {
-            toast.error('You are not an admin');
-        }
-        
+        try {
+            const response = await useAxios.post('/api/auth/login', { user, password });
+            const token = response.data.token;
+            localStorage.setItem('token', token);
+            toast.success('Login Ok Bro');
+            navigate('/admin/dashboard')
+            // Redirect to dashboard or perform any other action upon successful login
+          } catch (error) {
+            console.error('Login failed:', error);
+            // Handle login failure (display error message, etc.)
+          }
 
 
     }

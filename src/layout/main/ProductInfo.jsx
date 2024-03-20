@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 
 import { useNavigate, useParams } from "react-router-dom";
 import HelmetAdd from "../shear/HelmetAdd";
+import useAxios from "../../Axios/useAxios";
 
 const Hero = () => {
 	// declare dispatch function
@@ -12,39 +13,27 @@ const Hero = () => {
 	
 
     const getData = useParams();
-
-	// increase or decrease desired item quantity before checkout
-	
  
     useEffect(() => {
         setLoading(true); // Set loading to true when fetching data
-        fetch(`https://dummyjson.com/products/${getData.id}`)
-            .then(res => res.json())
-            .then(json => {
-                setData(json);
-                setImag(json.images)
-                setLoading(false); // Set loading to false when data is fetched
-            })
-            .catch(() => {
-                setLoading(false); // Set loading to false if there is an error
-                toast.error('There was an error while retrieving the data');
-            });
+        
+        useAxios.get(`/api/product/${getData.id}`)
+        .then(res=>{
+
+          setData(res.data[0]);
+          setImag(res.data[0].images)
+          setLoading(false)
+        }) .catch(() => {
+          setLoading(false); // Set loading to false if there is an error
+          toast.error('There was an error while retrieving the data');
+      });
+        
+        
     }, [getData]);
 
-    const galleryArray = [];
-    useEffect(()=>{
-        for (let index = 0; index < imag.length; index++) {
-            const element = data.images[index];
-            galleryArray.push(element)
-            
-        }
-
-
-    },[data])
-
-
-
     const navigate = useNavigate();
+
+console.log(data.video);
 
 
     const buyNow = ()=>{
@@ -67,11 +56,7 @@ const Hero = () => {
         newData = JSON.parse(existingData);
         
         // Check if the product already exists in the data
-        const isDuplicate = newData.some(item => 
-          item.product_title === buyData.product_title &&
-          item.product_price === buyData.product_price &&
-          item.product_img === buyData.product_img
-        );
+        const isDuplicate = newData.some(item =>  item.product_id === buyData.product_id );
   
         // If it's a duplicate, don't add it again
         if (isDuplicate) {
@@ -111,11 +96,7 @@ const Hero = () => {
         newData = JSON.parse(existingData);
         
         // Check if the product already exists in the data
-        const isDuplicate = newData.some(item => 
-          item.product_title === buyData.product_title &&
-          item.product_price === buyData.product_price &&
-          item.product_img === buyData.product_img
-        );
+        const isDuplicate = newData.some(item =>  item.product_id === buyData.product_id );
   
         // If it's a duplicate, don't add it again
         if (isDuplicate) {
@@ -220,7 +201,12 @@ const Hero = () => {
       
 </div>
 
-<iframe className="w-full h-96" src={data.video} title="YouTube video player" frameBorder="0" allow=" autoplay  encrypted-media gyroscope " allowFullScreen></iframe>
+{
+
+  data.video == null ? <></> : <iframe className="w-full h-96" src={data.video} title="YouTube video player" frameBorder="0" allow=" autoplay  encrypted-media gyroscope " allowFullScreen></iframe>
+}
+
+
         {
             imag.map((res,i)=> <img key={i} src={res} alt="image" />)
         }

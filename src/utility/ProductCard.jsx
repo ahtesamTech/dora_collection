@@ -28,11 +28,7 @@ const buyData = {
       newData = JSON.parse(existingData);
       
       // Check if the product already exists in the data
-      const isDuplicate = newData.some(item => 
-        item.product_title === buyData.product_title &&
-        item.product_price === buyData.product_price &&
-        item.product_img === buyData.product_img
-      );
+      const isDuplicate = newData.some(item =>  item.product_id === buyData.product_id );
 
       // If it's a duplicate, don't add it again
       if (isDuplicate) {
@@ -75,11 +71,7 @@ const buyData = {
       newData = JSON.parse(existingData);
       
       // Check if the product already exists in the data
-      const isDuplicate = newData.some(item => 
-        item.product_title === buyData.product_title &&
-        item.product_price === buyData.product_price &&
-        item.product_img === buyData.product_img
-      );
+      const isDuplicate = newData.some(item =>  item.product_id === buyData.product_id );
 
       // If it's a duplicate, don't add it again
       if (isDuplicate) {

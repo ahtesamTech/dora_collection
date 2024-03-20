@@ -16,6 +16,14 @@ const DashNav = () => {
     
    },[])
 
+   // Logout function
+const handleLogout = () => {
+    // Remove token from local storage
+    localStorage.removeItem('token');
+    // Redirect the user to the login page or perform other actions
+  };
+  
+
     return (
         <div>
             <nav className="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-lg">
@@ -36,6 +44,11 @@ const DashNav = () => {
           <NavLink className="" to="view-order">
            view order
             </NavLink>
+        </li>
+        <li className="p-2 bg-lime-600 rounded-md text-white lg:ml-4 relative inline-block">
+          <button className="btn" onClick={handleLogout}>
+           LogOut
+            </button>
         </li>
 
             {/* <a href="https://themesberg.com/product/tailwind-css/landing-page"

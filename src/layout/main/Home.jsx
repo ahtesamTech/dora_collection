@@ -14,17 +14,17 @@ const Home = () => {
 
     useEffect(() => {
         setLoading(true); // Set loading to true when fetching data
-        fetch('https://dummyjson.com/products/')
-            .then(res => res.json())
-            .then(json => {
-                setData(json.products);
-                setLoading(false); // Set loading to false when data is fetched
-            })
-            .catch(() => {
-                setLoading(false); // Set loading to false if there is an error
-                toast.error('There was an error while retrieving the data');
-                // window.location.reload();
-            });
+
+        useAxios.get('/api/product')
+        .then(res=>{
+            setData(res.data.products);
+            setLoading(false);
+
+        }).catch(()=>{
+            setLoading(false); // Set loading to false if there is an error
+            toast.error('There was an error while retrieving the data');
+        })
+
     }, []);
 
     const indexOfLastRecord = currentPage * recordsPerPage;
