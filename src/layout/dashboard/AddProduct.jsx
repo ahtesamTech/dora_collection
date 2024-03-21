@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 const AddProduct = () => {
 
-    const { register, handleSubmit, setValue  } = useForm();
+    const { register, handleSubmit, reset  } = useForm();
 
     const tdate = useTodayDate();
 
@@ -43,6 +43,7 @@ const AddProduct = () => {
             if (res.data.success == true) {
           
                 toast.success(res.data.message);
+                reset();
     
              } else {
                  // Error handling

@@ -5,12 +5,14 @@ import DashNav from './layout/dashboard/DashNav';
 
 const Admin = () => {
     return (
-        <div>
-                <AdminProvider>
-                    <DashNav></DashNav>
-                <Toaster></Toaster>
-                <Outlet></Outlet>
-                </AdminProvider>
+        <div>        
+        
+        <AdminProvider>
+            <DashNav></DashNav>
+            <Toaster></Toaster>
+            <Outlet></Outlet>
+        </AdminProvider>
+       
         </div>
     );
 };

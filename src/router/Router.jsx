@@ -10,6 +10,7 @@ import AdminLogin from "../layout/dashboard/AdminLogin";
 import AuthCheck from "../layout/dashboard/provider/AuthCheck";
 import DashboardUI from "../layout/dashboard/Dashboard";
 import AddProduct from "../layout/dashboard/AddProduct";
+import ViewOrder from "../layout/dashboard/ViewOrder";
 
  const Router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ import AddProduct from "../layout/dashboard/AddProduct";
             {
                 path: 'add-product',
                 element: <AuthCheck><AddProduct></AddProduct></AuthCheck>
+            },
+            {
+                path: 'view-order',
+                element: <AuthCheck><ViewOrder></ViewOrder></AuthCheck>
             }
         ]
     }

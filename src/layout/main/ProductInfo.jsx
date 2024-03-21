@@ -193,7 +193,7 @@ console.log(data.video);
     
             </div>
 
-<div className="w-full flex flex-col gap-3 justify-center rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
+<div className="w-full flex flex-col gap-5 justify-center rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
         <h1 className="text-center text-2xl font-bold">More Image And Video</h1>
 
 
@@ -208,7 +208,7 @@ console.log(data.video);
 
 
         {
-            imag.map((res,i)=> <img key={i} src={res} alt="image" />)
+            imag.map((res,i)=> <img key={i} src={res} alt="image" className="w-9/12 mx-auto" />)
         }
 
     </div>

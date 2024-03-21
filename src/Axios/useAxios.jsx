@@ -1,28 +1,25 @@
 import axios from "axios";
 
-
 const useAxios = axios.create({
-    baseURL: 'http://localhost:3000',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('token')}` // Include JWT token
-    },
-    withCredentials: true
-  });
+  baseURL: 'http://localhost:3000',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true
+});
 
-
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await useAxios.get('/protected-route');
-  //     const data = response.data;
-  //     // Handle response data
-  //   } catch (error) {
-  //     console.error('Request failed:', error);
-  //     // Handle request failure
-  //   }
-  // };
+// Add request interceptor to dynamically set Authorization header
+useAxios.interceptors.request.use(
+  (config) => {
+    // console.log(config);
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.authorization = `${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+});
 
 export default useAxios;
-
-
-

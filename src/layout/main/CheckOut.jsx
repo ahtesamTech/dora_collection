@@ -64,9 +64,6 @@ const CheckOut = () => {
         }
 
 
-
-
-
       }
 
       const confirm = async (e)=>{
@@ -245,6 +242,8 @@ const CheckOut = () => {
                 id="customerNumber"
                 className="block w-full px-5 py-2 border rounded-lg bg-white shadow-lg placeholder-gray-400 text-gray-700 focus:ring focus:outline-none"
                 placeholder="মোবাইল নাম্বার" required
+                maxLength={11}
+                minLength={11}
               />
             </div>
             <div className="my-3">
@@ -265,6 +264,8 @@ const CheckOut = () => {
                 id="customerPaymentNumber"
                 className="block w-full px-5 py-2 border rounded-lg bg-white shadow-lg placeholder-gray-400 text-gray-700 focus:ring focus:outline-none"
                 placeholder="যে নাম্বার এর মাধ্যমে অগ্রিম পেমেন্ট করেছেন"
+                maxLength={11}
+                minLength={11}
               />
             </div>
            

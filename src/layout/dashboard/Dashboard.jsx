@@ -7,7 +7,7 @@ import useAxios from "../../Axios/useAxios";
 
 const DashboardUI = () => {
     const {Dates, Month, Year} = useTodayDate();
-    const [data, setInvoiceData] = useState([]);
+    const [data, setOrderData] = useState([]);
     const [todayInvoiceData, setTodayInvoiceData] = useState([]);
     const [sellProducs, setSellProducts] = useState([]);
     const [monthlySellProducsCost, setMonthSellProductsCost] = useState([]);
@@ -19,31 +19,15 @@ const DashboardUI = () => {
     const [todayService, setTodayService] = useState(0);
   const navigate = useNavigate();
  
-
-  useEffect(()=>{
-    document.addEventListener('keypress', handleKeyPress, true);
-  }, []);
- 
-  const handleKeyPress = (e) => {
-    console.log(e.key);
-
-  
-  }
-
 ////////////////////////////////////////////////////////////
 
 useEffect(()=>{
-    useAxios.get('/all-invoices')
+    useAxios.get('/api/view-order/orders')
     .then(res =>{
-       setInvoiceData(res.data.result);
-       const billData = res.data.result;
-    //    console.log(billData);
+       setOrderData(res.data.orders);
+       const billData = res.data.orders;
+       console.log(billData);
 
- 
-
-       const todayBillData = billData.filter(res=> res.date == Dates);
-    //    console.log( todayBillData);
-       setTodayInvoiceData(todayBillData)
        
 
     });
@@ -53,85 +37,10 @@ useEffect(()=>{
 
   /////////////////////////////////////////////////////////////////////
 
-  useEffect(()=>{
-
-    let data = todayInvoiceData.reduce((acc, curr) => acc + (curr.totalSellAmount || 0), 0);
-    setTodaySellService(data);
-    const serviceData = todayInvoiceData.reduce((acc, curr)=> acc + (parseInt(curr.serviceFee) || 0), 0);
-    // console.log(serviceData);
-    setTodayService(serviceData);
-    const sellData = data - serviceData;
-    setTodaySell(sellData)
-
-  },[todayInvoiceData])
 
   /////////////////////////////////////////////////////////////////////
 
-
-  const calculateMonthlyTotalSellAmount = () => {
-    if (!data) return;
-
-    const targetMonth = parseInt(Month); // March
-    const targetYear = parseInt(Year);
-
-    const targetEntries = data.filter(entry => {
-      const [day, month, year] = entry.date.split('/');
-      return parseInt(month, 10) === targetMonth && parseInt(year, 10) === targetYear;
-    });
-
-    const totalMonthAmount = targetEntries.reduce((total, entry) => total + parseFloat(entry.totalSellAmount), 0);
-    setMonthlyTotalAmount(totalMonthAmount);
-    const totalMonthSeriveAmount = targetEntries.reduce((total, entry) => total + parseFloat(entry.serviceFee), 0);
-    setMonthlyTotalServiceAmount(totalMonthSeriveAmount);
-
-    const sellAmount = totalMonthAmount - totalMonthSeriveAmount
-    setMonthlyTotalSellAmount(sellAmount);
-
-
-
-    // console.log(targetEntries);
-
-
-    let totalMonthBuyPrice = 0;
-
-    // Loop through each entry in todayInvoiceData
-    targetEntries.forEach(entry => {
-        // Loop through each sellProduct in the current entry
-        entry.sellProduct.forEach(product => {
-            // Add the buyPrice value to the totalBuyPrice
-            totalMonthBuyPrice += product.buyPrice;
-        });
-    });
-
-    setMonthSellProductsCost(totalMonthBuyPrice)
-
-
-  };
-
-  useEffect(() => {
-    calculateMonthlyTotalSellAmount();
-  }, [data]);
   /////////////////////////////////////////////////////////////////////
-
-
-  useEffect(() => {
-    // Initialize a variable to hold the total buy price
-    let totalBuyPrice = 0;
-
-    // Loop through each entry in todayInvoiceData
-    todayInvoiceData.forEach(entry => {
-        // Loop through each sellProduct in the current entry
-        entry.sellProduct.forEach(product => {
-            // Add the buyPrice value to the totalBuyPrice
-            totalBuyPrice += product.buyPrice;
-        });
-    });
-
-    // Set the total buy price to the state variable todayBuyPrice
-    setSellProducts(totalBuyPrice);
-
-}, [todayInvoiceData]);
-
 
 
 
@@ -186,9 +95,9 @@ useEffect(()=>{
                                     </div>
                                     <div className="ml-2 w-full flex-1">
                                         <div>
-                                            <div className="mt-3 text-3xl font-bold leading-8">{todaySellService}</div>
+                                            <div className="mt-3 text-3xl font-bold leading-8">{data.length}</div>
 
-                                            <div className="mt-1 text-base text-gray-600">Today Sales & service</div>
+                                            <div className="mt-1 text-2xl text-gray-600">Panding Order</div>
                                         </div>
                                     </div>
                                 </div>

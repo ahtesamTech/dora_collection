@@ -15,11 +15,10 @@ const myStore = createStore(
 );
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  
 	<HelmetProvider>
     <Provider store={myStore}>
 		<RouterProvider router={Router}/>
 	</Provider>
-	</HelmetProvider>
-  </React.StrictMode>,
+	</HelmetProvider>,
 )

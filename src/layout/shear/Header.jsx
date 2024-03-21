@@ -44,7 +44,8 @@ const Header = () => {
     <p>যেকোনো প্রয়োজনে যোগাযোগ করুন</p>
   <div className="flex items-center gap-4">
   <p className="flex items-center gap-1"> <MdAddCall/>   018902839234898</p>
-    <FaWhatsapp className="bg-green-600 rounded-full text-4xl p-2" />
+  <a href="https://whatsapp.com/channel/0029VaWrjDb8aKvLvC8LoG32"><FaWhatsapp className="bg-green-600 rounded-full text-4xl p-2" /></a>
+    
   </div>
     </div>
     <Marquee autoFill={false} play={true} pauseOnHover={true} className="text-xl mt-2 font-bold" >
